@@ -1,10 +1,12 @@
-import express from 'express'
+import * as express from 'express'
+import router from './routes/routes'
+import userRoutes from './routes/user'
 
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.status(200).json('Hello Mate')
-})
+
+app.use('/api', router)
+app.user('/auth', userRoutes)
 
 export default app
