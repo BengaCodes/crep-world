@@ -29,6 +29,8 @@ model Trainers {
   belongsToId      String
   belongsTo        User    @relation(fields: [belongsToId], references: [id])
   image            String?
+
+  @@unique([id, belongsToId])
 }
 
 model Blog {
