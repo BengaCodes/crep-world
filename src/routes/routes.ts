@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { body } from 'express-validator'
+import { createBlog, deleteBlog, getABlog, getAllBlogs } from '../handlers/blog/blog'
 import { createTrainers, deleteTrainers, editTrainers, getAllTrainers, getATrainer, getUsersTrainers } from '../handlers/trainers/trainers'
 import { protect } from '../modules/auth'
 import { handleInputErrors } from '../modules/middleware'
@@ -17,10 +18,10 @@ router.delete('/trainers/:id', protect, deleteTrainers)
 
 
 // ! Blog
-router.get('/blogs', () => {})
-router.get('/blogs/:id', () => {})
-router.post('/blogs', body('title').isString().isLength({ min: 8 }), body('body').isString().isLength({ min: 50 }), handleInputErrors, () => {})
+router.get('/blogs', getAllBlogs)
+router.get('/blogs/:id', getABlog)
+router.post('/blogs', body('title').isString().isLength({ min: 8 }), body('body').isString().isLength({ min: 50 }), handleInputErrors, protect, createBlog)
 router.put('/blogs/:id', body('title').isString().isLength({ min: 8 }), body('body').isString().isLength({ min: 50 }), handleInputErrors, () => {})
-router.delete('/blogs/:id', () => {})
+router.delete('/blogs/:id', protect, deleteBlog)
 
 export default router

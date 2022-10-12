@@ -39,4 +39,6 @@ model Blog {
   body        String
   writtenById String
   writtenBy   User   @relation(fields: [writtenById], references: [id])
+
+  @@unique([id, writtenById])
 }
