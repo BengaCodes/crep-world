@@ -1,15 +1,17 @@
 import { Router } from 'express'
 import { body } from 'express-validator'
+import { createTrainers, getAllTrainers } from '../handlers/trainers/trainers'
+import { protect } from '../modules/auth'
 import { handleInputErrors } from '../modules/middleware'
 
 const router = Router()
 
 // ! TRAINERS
 
-router.get('/trainers', () => {})
+router.get('/trainers', getAllTrainers)
 router.get('/trainers/:id', () => {})
-router.post('/trainers', body('name').isString(), body('price').isInt(), body('purchaseLocation').optional().isString(), body('description').isString(), handleInputErrors, () => {})
-router.put('/trainers/:id', body('name').optional().isString(), body('price').optional().isInt(), body('purchaseLocation').optional().isString(), body('description').optional().isString(), handleInputErrors, () => {})
+router.post('/trainers', body('name').isString(), body('price').isFloat(), body('purchaseLocation').optional().isString(), body('description').isString(), handleInputErrors, protect, createTrainers)
+router.put('/trainers/:id', body('name').optional().isString(), body('price').optional().isFloat(), body('purchaseLocation').optional().isString(), body('description').optional().isString(), handleInputErrors, () => {})
 router.delete('/trainers/:id', () => {})
 
 
